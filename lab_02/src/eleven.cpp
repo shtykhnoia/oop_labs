@@ -51,8 +51,22 @@ Eleven::Eleven(const std::string &s) {
 }
 
 Eleven::Eleven(const Eleven &other) {
+
+    capacity = other.capacity;
+    digits = new unsigned char[capacity]{};
+
+    for(int i = 0; i < capacity; i++){
+        digits[i] = other.digits[i];
+    }
+    
+}
+
+Eleven::Eleven(Eleven&& other) {
     capacity = other.capacity;
     digits = other.digits;
+    
+    other.digits = nullptr;
+    other.capacity = 0;
 }
 
 Eleven::Eleven(const size_t size) {
@@ -60,7 +74,7 @@ Eleven::Eleven(const size_t size) {
     digits = new unsigned char[capacity];
 }
 
-Eleven::~Eleven() noexcept {
+Eleven::~Eleven() {
     delete[] digits;
     digits = nullptr;
     capacity = 0;

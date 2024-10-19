@@ -26,6 +26,8 @@ public:
 
     Eleven(const Eleven &other);
 
+    Eleven(Eleven&& other);
+
     Eleven plus(const Eleven &other) const;
 
     Eleven minus(const Eleven &other) const;
@@ -38,5 +40,5 @@ public:
 
     bool greater_than(const Eleven &other) const;
 
-    virtual ~Eleven() noexcept;
+    virtual ~Eleven();
 };

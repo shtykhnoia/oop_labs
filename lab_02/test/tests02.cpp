@@ -1,6 +1,30 @@
 #include <gtest/gtest.h>
 #include "../include/eleven.h"
 
+
+TEST(ElevenTest, ConstructorWithInitializerList) {
+    Eleven e({'A', '3', '7'});
+    ASSERT_TRUE(e.equal(Eleven("73A")));  
+}
+
+TEST(ElevenTest, ConstructorWithString) {
+    Eleven e("A37");
+    ASSERT_TRUE(e.equal(Eleven("A37")));  
+}
+
+TEST(ElevenTest, CopyConstructor) {
+    Eleven original("A37");
+    Eleven copy(original);  
+    ASSERT_TRUE(copy.equal(original)); 
+}
+
+TEST(ElevenTest, MoveConstructor) {
+    Eleven original("A37");
+    Eleven moved(std::move(original));
+
+    ASSERT_TRUE(moved.equal(Eleven("A37")));  
+}
+
 TEST(ElevenTest, CompareEqual) {
     Eleven e1("2A");
     Eleven e2("2A");
@@ -24,35 +48,25 @@ TEST(ElevenTest, CompareLower) {
     ASSERT_FALSE(e1.greater_than(e2));
 }
 
-TEST(ElevenTest, ConstructorWithInitializerList) {
-    Eleven e({'A', '3', '7'});
-    ASSERT_TRUE(e.equal(Eleven("73A"))); // Проверяем с помощью метода equal
-}
-
-TEST(ElevenTest, ConstructorWithString) {
-    Eleven e("A37");
-    ASSERT_TRUE(e.equal(Eleven("A37"))); // Проверяем с помощью метода equal
-}
-
 TEST(ElevenTest, PlusOperation) {
     Eleven e1("A0");
     Eleven e2("2A");
     Eleven result = e1.plus(e2);
-    ASSERT_TRUE(result.equal(Eleven("11A"))); // Проверяем с помощью метода equal
+    ASSERT_TRUE(result.equal(Eleven("11A")));
 }
 
 TEST(ElevenTest, MinusOperation) {
     Eleven e1("2A");
     Eleven e2("A");
     Eleven result = e1.minus(e2);
-    ASSERT_TRUE(result.equal(Eleven("20"))); // Проверяем с помощью метода equal
+    ASSERT_TRUE(result.equal(Eleven("20")));
 }
 
 TEST(ElevenTest, PlusWithCarry) {
     Eleven e1("A5");
     Eleven e2("A6");
     Eleven result = e1.plus(e2);
-    ASSERT_TRUE(result.equal(Eleven("1A0"))); // Проверяем с помощью метода equal
+    ASSERT_TRUE(result.equal(Eleven("1A0")));
 }
 
 TEST(ElevenTest, MinusWithBorrow) {
@@ -66,14 +80,14 @@ TEST(ElevenTest, EdgeCaseZeroMinusZero) {
     Eleven e1("0");
     Eleven e2("0");
     Eleven result = e1.minus(e2);
-    ASSERT_TRUE(result.equal(Eleven("0"))); // Проверяем с помощью метода equal
+    ASSERT_TRUE(result.equal(Eleven("0"))); 
 }
 
 TEST(ElevenTest, EdgeCaseLargeNumberAddition) {
     Eleven e1("A0000000A");
     Eleven e2("A0000000A");
     Eleven result = e1.plus(e2);
-    ASSERT_TRUE(result.equal(Eleven("1900000019"))); // Проверяем с помощью метода equal
+    ASSERT_TRUE(result.equal(Eleven("1900000019")));
 }
 
 int main(int argc, char **argv)
