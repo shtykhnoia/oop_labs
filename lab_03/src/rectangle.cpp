@@ -13,11 +13,11 @@ Rectangle::Rectangle(std::initializer_list<Point> vertices) : Rectangle{}
 }
 
 Rectangle::operator double() {
-    return Figure::getArea();
+    return getArea();
 }
 
 bool Rectangle::operator==(const Rectangle &other) const {
-    return Figure::compare(other);
+    return compare(other);
 }
 
 Rectangle &Rectangle::operator=(const Rectangle &other)
@@ -51,5 +51,4 @@ std::istream &operator>>(std::istream &is, Rectangle &rec){
 }
 
 Rectangle::~Rectangle(){
-
 }

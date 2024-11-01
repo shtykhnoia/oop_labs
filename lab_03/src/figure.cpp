@@ -43,7 +43,7 @@ bool Figure::compare(const Figure &other) const {
 
     for (int offset = 0; offset < numVertices; ++offset) {
         bool equal = true;
-        
+
         for (int i = 0; i < numVertices; ++i) {
             if (!(points[i] == other.points[(i + offset) % numVertices])) {
                 equal = false;
@@ -56,8 +56,24 @@ bool Figure::compare(const Figure &other) const {
         }
     }
 
+    for (int offset = 0; offset < numVertices; ++offset) {
+        bool equal = true;
+
+        for (int i = 0; i < numVertices; ++i) {
+            if (!(points[i] == other.points[(numVertices - i - 1 + offset) % numVertices])) {
+                equal = false;
+                break;
+            }
+        }
+
+        if (equal) {
+            return true;
+        }
+    }
+
     return false;
 }
+
 
 
 double Figure::getArea() const {

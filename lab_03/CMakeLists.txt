@@ -22,6 +22,8 @@ add_library(
     figures
     src/figure.cpp
     src/rectangle.cpp
+    src/rhombus.cpp
+    src/trapezoid.cpp
 )
 
 
@@ -30,11 +32,22 @@ add_library(
 add_executable(main src/main.cpp)
 
 add_executable(rectangleTest tests/rectangle.cpp)
+add_executable(rhombusTest tests/rhombus.cpp)
+add_executable(trapTest tests/trapezoid.cpp)
+
+
 target_link_libraries(rectangleTest figures gtest)
+target_link_libraries(rhombusTest figures gtest)
+target_link_libraries(trapTest figures gtest)
+
 
 target_include_directories(figures PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(main PRIVATE figures)
 
 # Testing configuration
 enable_testing()
-add_test(NAME TRIANGLE_SUITE COMMAND rectangleTest)
+add_test(NAME RECTANGLE_SUITE COMMAND rectangleTest)
+add_test(NAME RHOMBUS_SUITE COMMAND rhombusTest)
+add_test(NAME TRAPEZOID_SUITE COMMAND trapTest)
+
+
