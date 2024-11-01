@@ -6,8 +6,6 @@ public:
     Rectangle();
     Rectangle(std::initializer_list<Point> vertices);
 
-    operator double();
-
     bool operator==(const Rectangle &other) const;
     Rectangle &operator=(const Rectangle &other);
     Rectangle &operator=(Rectangle &&other);

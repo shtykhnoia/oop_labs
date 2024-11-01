@@ -8,8 +8,6 @@ public:
     Trapezoid(std::initializer_list<Point> vertices);
     ~Trapezoid();
 
-    operator double();
-
     bool operator==(const Trapezoid &other) const;
     Trapezoid &operator=(const Trapezoid &other);
     Trapezoid &operator=(Trapezoid &&other);

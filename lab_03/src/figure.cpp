@@ -80,6 +80,10 @@ double Figure::getArea() const {
     return std::abs(calculateArea());
 }
 
+Figure::operator double() const {
+    return std::abs(calculateArea());
+}
+
 Point Figure::center() const {
     return calculateCenter();
 }

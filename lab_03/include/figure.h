@@ -7,11 +7,14 @@ public:
 
     virtual ~Figure();
 
-    Point center() const;
+    virtual Point center() const;
 
-    virtual double getArea() const;
+    double getArea() const;
 
-    virtual bool compare(const Figure& other) const;
+    virtual operator double() const;
+
+    bool compare(const Figure& other) const;
+
 
 protected:
 

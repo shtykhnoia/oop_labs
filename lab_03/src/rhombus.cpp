@@ -28,10 +28,6 @@ bool Rhombus::operator==(const Rhombus &other) const {
     return compare(other);
 }
 
-Rhombus::operator double() {
-    return Figure::getArea();
-}
-
 std::ostream &operator<<(std::ostream &os, const Rhombus &rh){
     os << "Rhombus( ";
     for (int i = 0; i < rh.numVertices; i++) {

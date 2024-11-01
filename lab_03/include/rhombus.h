@@ -8,7 +8,6 @@ public:
     Rhombus(std::initializer_list<Point> vertices);
     ~Rhombus();
 
-    operator double();
 
     bool operator==(const Rhombus &other) const;
     Rhombus &operator=(const Rhombus &other);

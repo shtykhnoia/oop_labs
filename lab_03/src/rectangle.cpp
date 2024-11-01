@@ -12,9 +12,6 @@ Rectangle::Rectangle(std::initializer_list<Point> vertices) : Rectangle{}
     std::copy(vertices.begin(), vertices.end(), points);
 }
 
-Rectangle::operator double() {
-    return getArea();
-}
 
 bool Rectangle::operator==(const Rectangle &other) const {
     return compare(other);

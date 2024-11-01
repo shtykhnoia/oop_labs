@@ -30,10 +30,6 @@ Trapezoid &Trapezoid::operator=(Trapezoid &&other) {
     return *this;
 }
 
-Trapezoid::operator double() {
-    return getArea();
-}
-
 std::ostream &operator<<(std::ostream &os, const Trapezoid &tr) {
     os << "Trapezoid ( ";
     for(int i = 0; i < tr.numVertices; i++)
