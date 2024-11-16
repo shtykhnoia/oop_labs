@@ -309,6 +309,92 @@ TEST(TrapezoidTest, InputOutputOperators) {
     EXPECT_EQ(os.str(), "Trapezoid vertices: (0, 0) (4, 0) (3, 2) (1, 2) \n");
 }
 
+#include <array.hpp>
+
+#include <gtest/gtest.h>
+#include <memory>
+#include "array.hpp"
+#include "rectangle.hpp"
+#include "rhombus.hpp"
+#include "trapezoid.hpp"
+
+TEST(ArrayTest, ConstructorAndSize) {
+    Array<std::shared_ptr<Figure<double>>> figures;
+    EXPECT_EQ(figures.size(), 0);
+}
+
+TEST(ArrayTest, PushBackAndAccess) {
+    Array<std::shared_ptr<Figure<double>>> figures;
+    auto rect = std::make_shared<Rectangle<double>>(std::initializer_list<Point<double>>{{0, 0}, {4, 0}, {4, 2}, {0, 2}});
+    auto rhomb = std::make_shared<Rhombus<double>>(std::initializer_list<Point<double>>{{0, 0}, {1, 1}, {0, 2}, {-1, 1}});
+
+    figures.push_back(rect);
+    figures.push_back(rhomb);
+
+    EXPECT_EQ(figures.size(), 2);
+    EXPECT_EQ(static_cast<double>(*figures[0]), rect->getArea());
+    EXPECT_EQ(static_cast<double>(*figures[1]), rhomb->getArea());
+}
+
+TEST(ArrayTest, OutOfRangeAccess) {
+    Array<std::shared_ptr<Figure<double>>> figures;
+
+    EXPECT_THROW(figures[0], std::out_of_range);
+    EXPECT_THROW(figures[1], std::out_of_range);
+}
+
+TEST(ArrayTest, Erase) {
+    Array<std::shared_ptr<Figure<double>>> figures;
+    auto rect = std::make_shared<Rectangle<double>>(std::initializer_list<Point<double>>{{0, 0}, {4, 0}, {4, 2}, {0, 2}});
+    auto rhomb = std::make_shared<Rhombus<double>>(std::initializer_list<Point<double>>{{0, 0}, {1, 1}, {0, 2}, {-1, 1}});
+    auto trap = std::make_shared<Trapezoid<double>>(std::initializer_list<Point<double>>{{0, 0}, {2, 0}, {3, 2}, {-1, 2}});
+
+    figures.push_back(rect);
+    figures.push_back(rhomb);
+    figures.push_back(trap);
+
+    figures.erase(1);  // Удаляем Rhombus
+
+    EXPECT_EQ(figures.size(), 2);
+    EXPECT_EQ(static_cast<double>(*figures[0]), rect->getArea());
+    EXPECT_EQ(static_cast<double>(*figures[1]), trap->getArea());
+}
+
+TEST(ArrayTest, BeginAndEnd) {
+    Array<std::shared_ptr<Figure<double>>> figures;
+    auto rect = std::make_shared<Rectangle<double>>(std::initializer_list<Point<double>>{{0, 0}, {4, 0}, {4, 2}, {0, 2}});
+    auto trap = std::make_shared<Trapezoid<double>>(std::initializer_list<Point<double>>{{0, 0}, {2, 0}, {3, 2}, {-1, 2}});
+
+    figures.push_back(rect);
+    figures.push_back(trap);
+
+    EXPECT_EQ(static_cast<double>(*figures.begin()), rect->getArea());
+    EXPECT_EQ(static_cast<double>(*figures.end()), trap->getArea());
+}
+
+TEST(ArrayTest, ToDoubleConversion) {
+    Array<std::shared_ptr<Figure<double>>> figures;
+    auto rect = std::make_shared<Rectangle<double>>(std::initializer_list<Point<double>>{{0, 0}, {4, 0}, {4, 2}, {0, 2}});
+    auto trap = std::make_shared<Trapezoid<double>>(std::initializer_list<Point<double>>{{0, 0}, {2, 0}, {3, 2}, {-1, 2}});
+
+    figures.push_back(rect);
+    figures.push_back(trap);
+
+    double expected_sum = rect->getArea() + trap->getArea();
+    EXPECT_DOUBLE_EQ(static_cast<double>(figures), expected_sum);
+}
+
+
+TEST(ArrayTest, Resize) {
+    Array<std::shared_ptr<Figure<double>>> figures;
+
+    for (int i = 0; i < 100; ++i) {
+        figures.push_back(std::make_shared<Rectangle<double>>(std::initializer_list<Point<double>>{{0, 0}, {1, 0}, {1, 1}, {0, 1}}));
+    }
+
+    EXPECT_EQ(figures.size(), 100);
+    EXPECT_NO_THROW(figures[99]); // Проверка, что доступ к 99-му элементу корректен
+}
 
 
 int main(int argc, char **argv) {
